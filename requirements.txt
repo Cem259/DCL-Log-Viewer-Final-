@@ -1,0 +1,4 @@
+# Core GUI
+PySide6
+# Utils
+packaging>=24.0
