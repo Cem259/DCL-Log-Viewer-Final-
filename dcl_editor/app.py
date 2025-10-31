@@ -25,12 +25,12 @@ from .ui.theme import ThemeMode, apply_theme
 
 
 def main() -> int:
+    """Run the DCL Editor application and return the exit status."""
+
     app = QApplication(sys.argv)
     apply_theme(app, ThemeMode.LIGHT)
+
     window = MainWindow()
     window.show()
+
     return app.exec()
-
-
-if __name__ == "__main__":
-    sys.exit(main())
