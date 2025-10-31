@@ -3,8 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Iterable
 
-from PySide6.QtCore import QSize, QTimer, Qt
-from PySide6.QtGui import QCloseEvent
+from PySide6.QtCore import QSize, Qt
 from PySide6.QtWidgets import (
     QApplication,
     QFileDialog,
@@ -33,7 +32,7 @@ AVAILABLE_SCENARIOS: set[DclType] = {"RCD", "CLD", "CDA", "FSM", "UNKNOWN"}
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
-        self.setWindowTitle("DCL Exchange Viewer")
+        self.setWindowTitle("Departure Clearance (DCL) Log Viewer")
         self.resize(1200, 720)
 
         self.loader = LogLoader()
@@ -42,10 +41,6 @@ class MainWindow(QMainWindow):
         self.filtered: list[DclBlock] = []
 
         self._current_path: Path | None = None
-        self._follow_mode = False
-        self._follow_timer = QTimer(self)
-        self._follow_timer.setInterval(2000)
-        self._follow_timer.timeout.connect(self._refresh_from_disk)
         self._theme_mode = ThemeMode.LIGHT
         self._theme_button: QToolButton | None = None
         self._scenario_types: set[DclType] | None = None
@@ -66,7 +61,7 @@ class MainWindow(QMainWindow):
         top_layout.setContentsMargins(24, 18, 24, 18)
         top_layout.setSpacing(16)
 
-        title = QLabel("DCL Exchange Viewer", top_bar)
+        title = QLabel("Departure Clearance (DCL) Log Viewer", top_bar)
         title.setObjectName("AppTitle")
         top_layout.addWidget(title)
         top_layout.addStretch(1)
@@ -83,14 +78,6 @@ class MainWindow(QMainWindow):
                 "Refresh",
                 QStyle.SP_BrowserReload,
                 callback=self._refresh_from_disk,
-            )
-        )
-        top_layout.addWidget(
-            self._create_action_button(
-                "Follow",
-                QStyle.SP_MediaPlay,
-                toggled=self._toggle_follow,
-                checkable=True,
             )
         )
         self._theme_button = self._create_action_button(
@@ -299,14 +286,3 @@ class MainWindow(QMainWindow):
         dialog = DetailDialog(block.full_block_text, self)
         dialog.exec()
 
-    def _toggle_follow(self, enabled: bool) -> None:
-        self._follow_mode = enabled
-        if enabled:
-            self._follow_timer.start()
-        else:
-            self._follow_timer.stop()
-
-    def closeEvent(self, event: QCloseEvent) -> None:
-        if self._follow_timer.isActive():
-            self._follow_timer.stop()
-        super().closeEvent(event)
