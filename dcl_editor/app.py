@@ -21,6 +21,7 @@ except Exception:  # pragma: no cover - guard path
 from PySide6.QtWidgets import QApplication
 
 from .ui.main_window import MainWindow
+from .ui.splash_intro import SplashIntro
 from .ui.theme import ThemeMode, apply_theme
 
 
@@ -31,6 +32,13 @@ def main() -> int:
     apply_theme(app, ThemeMode.LIGHT)
 
     window = MainWindow()
-    window.show()
+
+    splash = SplashIntro()
+
+    def _launch_main() -> None:
+        window.show()
+
+    splash.finished.connect(_launch_main)
+    splash.start()
 
     return app.exec()
