@@ -7,7 +7,7 @@ A Qt-based desktop viewer that extracts and filters DCL-related ATC exchanges fr
 - Tokenizes `<STX>…<ETX>` blocks and converts tagged whitespace/control tokens into readable text.
 - Classifies messages as `RCD`, `CLD`, `CDA`, `FSM`, or `UNKNOWN` using header hints.
 - Extracts callsigns, timestamps, and summary lines for quick scanning.
-- Ribbon-style main window with callsign and message-type filters, live tailing, and context menu copy actions.
+- Ribbon-style main window with callsign and message-type filters plus live tailing.
 - Double-click a row to view the entire cleaned message block.
 
 ## Getting started

@@ -85,16 +85,6 @@ def build_stylesheet(mode: ThemeMode) -> str:
                 letter-spacing: 1px;
                 color: #4b2fd8;
             }
-            QWidget#ActionStrip {
-                background: rgba(255, 255, 255, 0.92);
-                border-bottom: 1px solid rgba(110, 118, 156, 0.18);
-            }
-            QLabel#SectionTitle {
-                text-transform: uppercase;
-                font-size: 12px;
-                color: #5a4fee;
-                letter-spacing: 1.4px;
-            }
             QToolButton#ActionButton {
                 background: rgba(92, 63, 211, 0.14);
                 border: 1px solid rgba(92, 63, 211, 0.3);
@@ -110,17 +100,6 @@ def build_stylesheet(mode: ThemeMode) -> str:
                 background: rgba(255, 113, 172, 0.35);
                 border-color: rgba(255, 113, 172, 0.6);
                 color: #2a1f4a;
-            }
-            QToolButton#QuickAction {
-                background: rgba(255, 113, 172, 0.22);
-                border: 1px solid rgba(255, 113, 172, 0.4);
-                border-radius: 14px;
-                padding: 9px 16px;
-                font-weight: 600;
-                color: #4f154f;
-            }
-            QToolButton#QuickAction:hover {
-                background: rgba(255, 113, 172, 0.35);
             }
             QWidget#FilterPanel {
                 background: rgba(255, 255, 255, 0.86);
@@ -201,16 +180,6 @@ def build_stylesheet(mode: ThemeMode) -> str:
             letter-spacing: 1px;
             color: #c7b6ff;
         }
-        QWidget#ActionStrip {
-            background: rgba(18, 22, 40, 0.88);
-            border-bottom: 1px solid rgba(130, 134, 166, 0.2);
-        }
-        QLabel#SectionTitle {
-            text-transform: uppercase;
-            font-size: 12px;
-            color: #ff76c0;
-            letter-spacing: 1.4px;
-        }
         QToolButton#ActionButton {
             background: rgba(138, 92, 255, 0.22);
             border: 1px solid rgba(138, 92, 255, 0.35);
@@ -226,17 +195,6 @@ def build_stylesheet(mode: ThemeMode) -> str:
             background: rgba(255, 98, 146, 0.4);
             border-color: rgba(255, 98, 146, 0.6);
             color: #1c102d;
-        }
-        QToolButton#QuickAction {
-            background: rgba(255, 98, 146, 0.3);
-            border: 1px solid rgba(255, 98, 146, 0.45);
-            border-radius: 14px;
-            padding: 9px 16px;
-            font-weight: 600;
-            color: #ffe4f0;
-        }
-        QToolButton#QuickAction:hover {
-            background: rgba(255, 98, 146, 0.45);
         }
         QWidget#FilterPanel {
             background: rgba(18, 22, 40, 0.92);
