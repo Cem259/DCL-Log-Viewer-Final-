@@ -104,42 +104,12 @@ class MainWindow(QMainWindow):
 
         layout.addWidget(top_bar)
 
-        quick_strip = QWidget(self)
-        quick_strip.setObjectName("ActionStrip")
-        quick_layout = QHBoxLayout(quick_strip)
-        quick_layout.setContentsMargins(24, 10, 24, 10)
-        quick_layout.setSpacing(12)
-
-        quick_label = QLabel("Quick Actions", quick_strip)
-        quick_label.setObjectName("SectionTitle")
-        quick_layout.addWidget(quick_label)
-        quick_layout.addStretch(1)
-
-        quick_layout.addWidget(
-            self._create_quick_button(
-                "Copy Text",
-                QStyle.SP_FileDialogContentsView,
-                lambda: self._invoke_on_current(self._copy_text),
-            )
-        )
-        quick_layout.addWidget(
-            self._create_quick_button(
-                "Copy JSON",
-                QStyle.SP_FileDialogDetailedView,
-                lambda: self._invoke_on_current(self._copy_json),
-            )
-        )
-
-        layout.addWidget(quick_strip)
-
         self.model = BlockTableModel()
         self.results = ResultsView(self)
         self.results.setObjectName("ResultsView")
         self.results.setProperty("compact", False)
         self.results.setModel(self.model)
         self.results.doubleClicked.connect(self._open_detail)
-        self.results.register_action("Copy as Text", self._copy_text)
-        self.results.register_action("Copy as JSON", self._copy_json)
 
         self.callsign_filter = CallsignFilter(self)
         self.callsign_filter.setObjectName("CallsignFilter")
@@ -227,27 +197,6 @@ class MainWindow(QMainWindow):
         if toggled:
             button.toggled.connect(toggled)  # type: ignore[arg-type]
         return button
-
-    def _create_quick_button(
-        self,
-        text: str,
-        icon: QStyle.StandardPixmap,
-        callback: callable,
-    ) -> QToolButton:
-        button = QToolButton(self)
-        button.setObjectName("QuickAction")
-        button.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
-        button.setIcon(self.style().standardIcon(icon))
-        button.setIconSize(QSize(24, 24))
-        button.setText(text)
-        button.setCursor(Qt.PointingHandCursor)
-        button.clicked.connect(callback)  # type: ignore[arg-type]
-        return button
-
-    def _invoke_on_current(self, handler: callable) -> None:
-        index = self.results.currentIndex()
-        if index.isValid():
-            handler(index)
 
     def _apply_styles(self, mode: ThemeMode) -> None:
         self.setStyleSheet(build_stylesheet(mode))
@@ -349,19 +298,6 @@ class MainWindow(QMainWindow):
             return
         dialog = DetailDialog(block.full_block_text, self)
         dialog.exec()
-
-    def _copy_text(self, index) -> None:
-        block = self.model.block_at(index)
-        if not block:
-            return
-        QApplication.clipboard().setText(block.full_block_text)
-
-    def _copy_json(self, index) -> None:
-        block = self.model.block_at(index)
-        if not block:
-            return
-        payload = block.metadata_json or ""
-        QApplication.clipboard().setText(payload)
 
     def _toggle_follow(self, enabled: bool) -> None:
         self._follow_mode = enabled
