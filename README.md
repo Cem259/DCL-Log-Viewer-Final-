@@ -1,33 +1,21 @@
-# DCL V2
+Summary
+Initial public release of the DCL Log Viewer application.
 
-A Qt-based desktop viewer that extracts and filters DCL-related ATC exchanges from ASMGCS `DEBUG.log` files.
+Description
+DCL Log Viewer is a Python-based desktop tool designed to parse, visualize, and analyze DCL (Departure Clearance) message logs.
+It supports multiple message categories such as RCD, CLD, CDA, and FSM, and provides real-time filtering and decoding capabilities.
 
-## Features
+Features
+Automatic detection and parsing of DCL message types (RCD, CLD, CDA, FSM)
+Real-time decoding and visualization of STX/ETX message blocks
+Search, filter, and export functions for log analysis
+Built-in statistics module for message frequency and error types
+Modern GUI interface built with Qt (PySide6)
+Installation
+Download the .msi installer below and run it.
+Default installation path:
+C:\Program Files\DCL Log Viewer
 
-- Tokenizes `<STX>…<ETX>` blocks and converts tagged whitespace/control tokens into readable text.
-- Classifies messages as `RCD`, `CLD`, `CDA`, `FSM`, or `UNKNOWN` using header hints.
-- Extracts callsigns, timestamps, and summary lines for quick scanning.
-- Ribbon-style main window with callsign and message-type filters plus live tailing.
-- Double-click a row to view the entire cleaned message block.
-
-## Getting started
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -e .
-python -m dcl_editor.app
-```
-
-## Run on Python 3.13 (Windows)
-1) scripts\win_bootstrap.bat
-2) .\\.venv\Scripts\activate
-3) python -m dcl_editor.app
-
-If you see 'PySide6 is not importable', you're likely outside the venv or missing wheels for your Python version; rerun bootstrap after installing a supported interpreter from the 3.10–3.13 range.
-
-## Running tests
-
-```bash
-pytest
-```
+Notes
+If Windows SmartScreen shows a “Unknown Publisher” warning, select More info → Run anyway.
+SHA256 checksum: (add checksum here)
